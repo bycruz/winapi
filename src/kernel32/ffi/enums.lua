@@ -11,4 +11,13 @@ enums.FormatMessage = {
 	ARGUMENT_ARRAY = 0x00002000,
 }
 
+---@enum winapi.kernel32.ConsoleCP
+enums.ConsoleCP = {
+	US_ASCII = 20127,
+	DOS_US = 437,
+	DOS_MULTILINGUAL = 850,
+	WINDOWS_WESTERN = 1252,
+	UTF8 = 65001,
+}
+
 return enums

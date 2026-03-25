@@ -7,6 +7,7 @@ ffi.cdef([[#embed "kernel32/ffi/ffidefs.h"]])
 ---@field GetLastError fun(): number
 ---@field FormatMessageA fun(dwFlags: number, lpSource: ffi.cdata*, dwMessageId: number, dwLanguageId: number, lpBuffer: ffi.cdata*, nSize: number, Arguments: ffi.cdata*): number
 ---@field Sleep fun(dwMilliseconds: number): nil
+---@field SetConsoleOutputCP fun(wCodePageID: number): number
 local C = ffi.load("kernel32")
 
 ---@class winapi.kernel32: winapi.kernel32.Enums
@@ -20,6 +21,7 @@ end
 kernel32.getModuleHandle = C.GetModuleHandleA
 kernel32.getLastError = C.GetLastError
 kernel32.sleep = C.Sleep
+kernel32.setConsoleOutputCP = C.SetConsoleOutputCP
 
 ---@return string
 function kernel32.getLastErrorMessage()
