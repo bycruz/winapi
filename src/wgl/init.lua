@@ -7,6 +7,7 @@ ffi.cdef([[#embed "wgl/ffi/ffidefs.h"]])
 ---@field wglCreateContext fun(hdc: winapi.wgl.ffi.HDC): winapi.wgl.ffi.HGLRC?
 ---@field wglMakeCurrent fun(hdc: winapi.wgl.ffi.HDC, hglrc: winapi.wgl.ffi.HGLRC): number
 ---@field wglDeleteContext fun(hglrc: winapi.wgl.ffi.HGLRC): number
+---@field wglShareLists fun(hglrc1: winapi.wgl.ffi.HGLRC, hglrc2: winapi.wgl.ffi.HGLRC): number
 local C = ffi.load("opengl32")
 
 ---@class winapi.wgl: winapi.wgl.Enums
@@ -31,6 +32,13 @@ end
 ---@return boolean
 function wgl.deleteContext(hglrc)
 	return C.wglDeleteContext(hglrc) ~= 0
+end
+
+---@param hglrc1 winapi.wgl.ffi.HGLRC
+---@param hglrc2 winapi.wgl.ffi.HGLRC
+---@return boolean
+function wgl.shareLists(hglrc1, hglrc2)
+	return C.wglShareLists(hglrc1, hglrc2) ~= 0
 end
 
 wgl.swapIntervalEXT = ffi.cast(

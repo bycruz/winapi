@@ -11,5 +11,6 @@ void *wglGetProcAddress(const char *name);
 HGLRC wglCreateContext(HDC hdc);
 BOOL wglMakeCurrent(HDC hdc, HGLRC hglrc);
 BOOL wglDeleteContext(HGLRC hglrc);
+BOOL wglShareLists(HGLRC hglrc1, HGLRC hglrc2);
 
 BOOL wglSwapIntervalEXT(int interval);
