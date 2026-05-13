@@ -33,4 +33,9 @@ function wgl.deleteContext(hglrc)
 	return C.wglDeleteContext(hglrc) ~= 0
 end
 
+wgl.swapIntervalEXT = ffi.cast(
+	"int(*)(int)",
+	wgl.getProcAddress("wglSwapIntervalEXT")
+)
+
 return wgl

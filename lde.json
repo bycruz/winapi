@@ -2,6 +2,6 @@
 	"name": "winapi",
 	"version": "0.1.0",
 	"devDependencies": {
-		"lpm-test": { "git": "https://github.com/codebycruz/lpm" }
+		"lde-test": { "git": "https://github.com/lde-org/lde" }
 	}
 }
