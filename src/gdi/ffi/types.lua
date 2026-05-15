@@ -27,3 +27,20 @@
 ---@field dwLayerMask number
 ---@field dwVisibleMask number
 ---@field dwDamageMask number
+
+---@class winapi.gdi.ffi.RECT: ffi.cdata*
+---@field left number
+---@field top number
+---@field right number
+---@field bottom number
+
+---@class winapi.gdi.ffi.POINT: ffi.cdata*
+---@field x number
+---@field y number
+
+---@class winapi.gdi.ffi.PAINTSTRUCT: ffi.cdata*
+---@field hdc winapi.gdi.ffi.HDC
+---@field fErase number
+---@field rcPaint winapi.gdi.ffi.RECT
+---@field fRestore number
+---@field fIncUpdate number
