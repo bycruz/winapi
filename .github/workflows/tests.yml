@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: codebycruz/lpm@master
+      - uses: lde-org/lde@master
 
       - name: Install dependencies
         run: lpm install
