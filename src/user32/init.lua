@@ -12,6 +12,7 @@ ffi.cdef([[#embed "user32/ffi/ffidefs.h"]])
 ---@field UnregisterClassA fun(lpClassName: string, hInstance: ffi.cdata*): number
 ---@field IsWindow fun(hWnd: winapi.user32.ffi.HWND): number
 ---@field GetClientRect fun(hWnd: winapi.user32.ffi.HWND, lpRect: winapi.user32.ffi.RECT): number
+---@field ValidateRect fun(hWnd: winapi.user32.ffi.HWND, lpRect: winapi.user32.ffi.RECT): number
 ---@field GetWindowTextA fun(hWnd: winapi.user32.ffi.HWND, lpString: ffi.cdata*, nMaxCount: number): number
 ---@field IsWindowVisible fun(hWnd: winapi.user32.ffi.HWND): number
 ---@field SetCursor fun(hCursor: ffi.cdata*): ffi.cdata*
@@ -113,6 +114,13 @@ end
 ---@return boolean
 function user32.getClientRect(hwnd, rect)
 	return C.GetClientRect(hwnd, rect) ~= 0
+end
+
+---@param hwnd winapi.user32.ffi.HWND
+---@param rect winapi.user32.ffi.RECT
+---@return boolean
+function user32.validateRect(hwnd, rect)
+	return C.ValidateRect(hwnd, rect) ~= 0
 end
 
 ---@param hwnd winapi.user32.ffi.HWND

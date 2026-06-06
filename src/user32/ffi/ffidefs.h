@@ -73,6 +73,7 @@ ATOM RegisterClassExA(const WNDCLASSEXA *lpWndClass);
 BOOL UnregisterClassA(LPCSTR lpClassName, HINSTANCE hInstance);
 BOOL IsWindow(HWND hWnd);
 BOOL GetClientRect(HWND hWnd, RECT *lpRect);
+BOOL ValidateRect(HWND hWnd, const RECT *lpRect);
 int GetWindowTextA(HWND hWnd, char *lpString, int nMaxCount);
 BOOL IsWindowVisible(HWND hWnd);
 
