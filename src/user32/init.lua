@@ -34,6 +34,7 @@ ffi.cdef([[#embed "user32/ffi/ffidefs.h"]])
 ---@field ShowCursor fun(bShow: number): number
 ---@field SetCapture fun(hWnd: winapi.user32.ffi.HWND): winapi.user32.ffi.HWND?
 ---@field ReleaseCapture fun(): number
+---@field SetWindowLongPtrA fun(hWnd: winapi.user32.ffi.HWND, nIndex: number, dwNewLong: number): number
 local C = ffi.load("user32")
 
 ---@class winapi.user32: winapi.user32.Enums
@@ -57,6 +58,7 @@ user32.getSysColorBrush = C.GetSysColorBrush
 user32.getKeyState = C.GetKeyState
 user32.getAsyncKeyState = C.GetAsyncKeyState
 user32.setCapture = C.SetCapture
+user32.setWindowLongPtr = C.SetWindowLongPtrA
 
 ---@param wnd winapi.user32.ffi.HWND
 ---@param show winapi.user32.ShowWindow

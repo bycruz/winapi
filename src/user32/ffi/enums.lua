@@ -8,23 +8,23 @@ return function(user32)
 	---@enum winapi.user32.IDC
 	enums.IDC = {
 		ARROW = user32.LPCSTR(ffi.cast("const char*", 32512)),
-		HAND = user32.LPCSTR(ffi.cast("const char*", 32649)),
+		HAND = user32.LPCSTR(ffi.cast("const char*", 32649))
 	}
 
 	---@enum winapi.user32.IDI
 	enums.IDI = {
-		APPLICATION = user32.LPCSTR(ffi.cast("const char*", 32512)),
+		APPLICATION = user32.LPCSTR(ffi.cast("const char*", 32512))
 	}
 
 	---@enum winapi.user32.COLOR
 	enums.COLOR = {
-		WINDOW = 5,
+		WINDOW = 5
 	}
 
 	---@enum winapi.user32.CS
 	enums.CS = {
 		HREDRAW = 0x0002,
-		VREDRAW = 0x0001,
+		VREDRAW = 0x0001
 	}
 
 	---@enum winapi.user32.WS
@@ -53,7 +53,7 @@ return function(user32)
 		TABSTOP          = 0x00010000,
 		THICKFRAME       = 0x00040000,
 		VISIBLE          = 0x10000000,
-		VSCROLL          = 0x00200000,
+		VSCROLL          = 0x00200000
 	}
 
 	---@enum winapi.user32.WM
@@ -97,7 +97,7 @@ return function(user32)
 		CTLCOLORLISTBOX   = 0x0134,
 		CTLCOLORMSGBOX    = 0x0132,
 		CTLCOLORSCROLLBAR = 0x0136,
-		CTLCOLORSTATIC    = 0x0138,
+		CTLCOLORSTATIC    = 0x0138
 	}
 
 	---@enum winapi.user32.VK
@@ -233,12 +233,12 @@ return function(user32)
 		OEM_5      = 0xDC,
 		OEM_6      = 0xDD,
 		OEM_7      = 0xDE,
-		OEM_8      = 0xDF,
+		OEM_8      = 0xDF
 	}
 
 	---@enum winapi.user32.PM
 	enums.PM = {
-		REMOVE = 0x0001,
+		REMOVE = 0x0001
 	}
 
 	---@enum winapi.user32.ShowWindow
@@ -254,11 +254,16 @@ return function(user32)
 		SHOWNA          = 8,
 		RESTORE         = 9,
 		SHOWDEFAULT     = 10,
-		FORCEMINIMIZE   = 11,
+		FORCEMINIMIZE   = 11
 	}
 
 	-- Create window default
 	enums.CW_USEDEFAULT = 0x80000000
+
+	---@enum winapi.user32.GWLP
+	enums.GWLP = {
+		WNDPROC = -4
+	}
 
 	return enums
 end

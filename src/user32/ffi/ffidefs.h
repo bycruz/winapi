@@ -103,3 +103,6 @@ BOOL SetCursorPos(int X, int Y);
 int ShowCursor(BOOL bShow);
 HWND SetCapture(HWND hWnd);
 BOOL ReleaseCapture(void);
+
+/* Window Long */
+intptr_t SetWindowLongPtrA(HWND hWnd, int nIndex, intptr_t dwNewLong);
