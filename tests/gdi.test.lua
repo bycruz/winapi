@@ -1,4 +1,4 @@
-local test = require("lpm-test")
+local test = require("lde-test")
 local winapi = require("winapi")
 
 test.it("should create initialized PFD", function()
