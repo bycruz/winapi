@@ -1,21 +1,28 @@
-name: Tests
+name: Test
 
 on:
   push:
-    branches: [master]
   pull_request:
-    branches: [master]
   workflow_dispatch:
 
 jobs:
   test:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+          - os: windows-11-arm
+
+    runs-on: ${{ matrix.os }}
+
     steps:
       - uses: actions/checkout@v4
-      - uses: lde-org/lde@master
 
-      - name: Install dependencies
-        run: lpm install
+      - name: Setup lde
+        uses: lde-org/setup-lde@master
+        with:
+          version: nightly
 
       - name: Run tests
-        run: lpm test
+        run: lde test
