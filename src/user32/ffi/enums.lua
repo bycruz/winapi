@@ -76,6 +76,7 @@ return function(user32)
 		XBUTTONDOWN       = 0x020B,
 		XBUTTONUP         = 0x020C,
 		MOUSEHWHEEL       = 0x020E,
+		DROPFILES         = 0x0233,
 		KEYDOWN           = 0x0100,
 		KEYUP             = 0x0101,
 		CHAR              = 0x0102,
@@ -241,6 +242,15 @@ return function(user32)
 		REMOVE = 0x0001
 	}
 
+	--- Standard clipboard formats (winuser.h)
+	---@enum winapi.user32.CF
+	enums.CF = {
+		TEXT = 1,
+		BITMAP = 2,
+		UNICODETEXT = 13,
+		HDROP = 15
+	}
+
 	---@enum winapi.user32.ShowWindow
 	enums.ShowWindow = {
 		HIDE            = 0,
@@ -262,7 +272,9 @@ return function(user32)
 
 	---@enum winapi.user32.GWLP
 	enums.GWLP = {
-		WNDPROC = -4
+		WNDPROC = -4,
+		STYLE = -16,
+		EXSTYLE = -20
 	}
 
 	return enums

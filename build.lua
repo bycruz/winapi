@@ -11,6 +11,7 @@ end
 local files = {
 	"gdi" .. separator .. "init.lua",
 	"kernel32" .. separator .. "init.lua",
+	"shell32" .. separator .. "init.lua",
 	"user32" .. separator .. "init.lua",
 	"wgl" .. separator .. "init.lua",
 }

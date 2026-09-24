@@ -2,5 +2,5 @@
 	"name": "winapi",
 	"description": "Windows API bindings for LuaJIT.",
 	"authors": ["David Cruz <david@bycruz.dev>"],
-	"version": "0.1.0"
+	"version": "0.1.1"
 }

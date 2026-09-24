@@ -35,6 +35,17 @@ ffi.cdef([[#embed "user32/ffi/ffidefs.h"]])
 ---@field SetCapture fun(hWnd: winapi.user32.ffi.HWND): winapi.user32.ffi.HWND?
 ---@field ReleaseCapture fun(): number
 ---@field SetWindowLongPtrA fun(hWnd: winapi.user32.ffi.HWND, nIndex: number, dwNewLong: number): number
+---@field GetWindowLongPtrA fun(hWnd: winapi.user32.ffi.HWND, nIndex: number): number
+---@field OpenClipboard fun(hWndNewOwner: winapi.user32.ffi.HWND?): number
+---@field CloseClipboard fun(): number
+---@field EmptyClipboard fun(): number
+---@field GetClipboardData fun(uFormat: number): winapi.user32.ffi.HANDLE?
+---@field SetClipboardData fun(uFormat: number, hMem: winapi.user32.ffi.HANDLE): winapi.user32.ffi.HANDLE?
+---@field IsClipboardFormatAvailable fun(format: number): number
+---@field RegisterClipboardFormatA fun(lpszFormat: string): number
+---@field GetOpenClipboardWindow fun(): winapi.user32.ffi.HWND?
+---@field PostMessageA fun(hWnd: winapi.user32.ffi.HWND, Msg: number, wParam: winapi.user32.ffi.WPARAM|number, lParam: winapi.user32.ffi.LPARAM|number): number
+---@field SendMessageA fun(hWnd: winapi.user32.ffi.HWND, Msg: number, wParam: winapi.user32.ffi.WPARAM|number, lParam: winapi.user32.ffi.LPARAM|number): number
 local C = ffi.load("user32")
 
 ---@class winapi.user32: winapi.user32.Enums
@@ -59,6 +70,94 @@ user32.getKeyState = C.GetKeyState
 user32.getAsyncKeyState = C.GetAsyncKeyState
 user32.setCapture = C.SetCapture
 user32.setWindowLongPtr = C.SetWindowLongPtrA
+user32.getWindowLongPtr = C.GetWindowLongPtrA
+
+--- Open the clipboard for the current task or for `hwnd`. Callers must pair every
+--- successful call with closeClipboard(), and may fail while another window holds
+--- the clipboard open.
+---@param hwnd winapi.user32.ffi.HWND?
+---@return boolean
+function user32.openClipboard(hwnd)
+	return C.OpenClipboard(hwnd) ~= 0
+end
+
+---@return boolean
+function user32.closeClipboard()
+	return C.CloseClipboard() ~= 0
+end
+
+---@return boolean
+function user32.emptyClipboard()
+	return C.EmptyClipboard() ~= 0
+end
+
+--- The handle of the clipboard data in `format`, or nil when the format is not
+--- on the clipboard (NULL). Pass it to kernel32.globalLock to read the data; the
+--- clipboard keeps ownership of it.
+---@param format number
+---@return winapi.user32.ffi.HANDLE?
+function user32.getClipboardData(format)
+	local handle = C.GetClipboardData(format)
+	if handle == nil then
+		return nil
+	end
+	return handle
+end
+
+--- Hand `hMem` over to the clipboard, which takes ownership of it: the memory
+--- must be moveable (kernel32.GMEM.MOVEABLE), must be unlocked before the
+--- clipboard is closed, and must not be freed by the caller on success.
+---@param format number
+---@param hMem winapi.user32.ffi.HANDLE
+---@return boolean
+function user32.setClipboardData(format, hMem)
+	return C.SetClipboardData(format, hMem) ~= nil
+end
+
+---@param format number
+---@return boolean
+function user32.isClipboardFormatAvailable(format)
+	return C.IsClipboardFormatAvailable(format) ~= 0
+end
+
+--- Register a custom clipboard format name, or return the identifier of the
+--- already registered one (0 when the call fails).
+---@param name string
+---@return number
+function user32.registerClipboardFormat(name)
+	return C.RegisterClipboardFormatA(name)
+end
+
+--- The window that currently has the clipboard open, or nil when none has (NULL).
+---@return winapi.user32.ffi.HWND?
+function user32.getOpenClipboardWindow()
+	local hwnd = C.GetOpenClipboardWindow()
+	if hwnd == nil then
+		return nil
+	end
+	return hwnd
+end
+
+---@param hwnd winapi.user32.ffi.HWND?
+---@param msg number
+---@param wParam winapi.user32.ffi.WPARAM|number|nil
+---@param lParam winapi.user32.ffi.LPARAM|number|nil
+---@return boolean
+function user32.postMessage(hwnd, msg, wParam, lParam)
+	return C.PostMessageA(hwnd, msg, wParam or 0, lParam or 0) ~= 0
+end
+
+--- Unlike postMessage, this waits for the window procedure to process the
+--- message. Returns the LRESULT as a Lua number; its meaning depends on the
+--- message that was sent.
+---@param hwnd winapi.user32.ffi.HWND?
+---@param msg number
+---@param wParam winapi.user32.ffi.WPARAM|number|nil
+---@param lParam winapi.user32.ffi.LPARAM|number|nil
+---@return number
+function user32.sendMessage(hwnd, msg, wParam, lParam)
+	return tonumber(C.SendMessageA(hwnd, msg, wParam or 0, lParam or 0))
+end
 
 ---@param wnd winapi.user32.ffi.HWND
 ---@param show winapi.user32.ShowWindow

@@ -39,3 +39,5 @@
 ---@class winapi.user32.ffi.POINT: ffi.cdata*
 ---@field x number
 ---@field y number
+
+---@class winapi.user32.ffi.HANDLE: ffi.cdata*

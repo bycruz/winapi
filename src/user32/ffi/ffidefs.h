@@ -20,6 +20,7 @@ typedef void *HICON;
 typedef void *HBRUSH;
 typedef void *HINSTANCE;
 typedef void *HMENU;
+typedef void *HANDLE;
 
 typedef struct {
   HWND hwnd;
@@ -106,3 +107,18 @@ BOOL ReleaseCapture(void);
 
 /* Window Long */
 intptr_t SetWindowLongPtrA(HWND hWnd, int nIndex, intptr_t dwNewLong);
+intptr_t GetWindowLongPtrA(HWND hWnd, int nIndex);
+
+/* Clipboard */
+BOOL OpenClipboard(HWND hWndNewOwner);
+BOOL CloseClipboard(void);
+BOOL EmptyClipboard(void);
+HANDLE GetClipboardData(UINT uFormat);
+HANDLE SetClipboardData(UINT uFormat, HANDLE hMem);
+BOOL IsClipboardFormatAvailable(UINT format);
+UINT RegisterClipboardFormatA(const char *lpszFormat);
+HWND GetOpenClipboardWindow(void);
+
+/* Messages */
+BOOL PostMessageA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+LRESULT SendMessageA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
