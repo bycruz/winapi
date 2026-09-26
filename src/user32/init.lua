@@ -7,6 +7,8 @@ ffi.cdef([[#embed "user32/ffi/ffidefs.h"]])
 ---@field DestroyWindow fun(hWnd: winapi.user32.ffi.HWND): number
 ---@field ShowWindow fun(hWnd: winapi.user32.ffi.HWND, nCmdShow: number): number
 ---@field UpdateWindow fun(hWnd: winapi.user32.ffi.HWND): number
+---@field SetTimer fun(hWnd: winapi.user32.ffi.HWND, nIDEvent: number, uElapse: number, lpTimerFunc: ffi.cdata*?): number
+---@field KillTimer fun(hWnd: winapi.user32.ffi.HWND, uIDEvent: number): number
 ---@field SetWindowTextA fun(hWnd: winapi.user32.ffi.HWND, lpString: string): number
 ---@field RegisterClassExA fun(lpWndClass: winapi.user32.ffi.WNDCLASSEXA): number
 ---@field UnregisterClassA fun(lpClassName: string, hInstance: ffi.cdata*): number
@@ -168,6 +170,21 @@ end
 ---@param wnd winapi.user32.ffi.HWND
 function user32.updateWindow(wnd)
 	return C.UpdateWindow(wnd) ~= 0
+end
+
+---@param wnd winapi.user32.ffi.HWND
+---@param id number # The caller's own id, which is what its WM.TIMER comes back under
+---@param milliseconds number # How long between messages, which the system rounds up to a few tens
+---@return number # The id, or nought where no timer could be had
+function user32.setTimer(wnd, id, milliseconds)
+	return tonumber(C.SetTimer(wnd, id, milliseconds, nil))
+end
+
+---@param wnd winapi.user32.ffi.HWND
+---@param id number
+---@return boolean
+function user32.killTimer(wnd, id)
+	return C.KillTimer(wnd, id) ~= 0
 end
 
 ---@param lpMsg winapi.user32.ffi.MSG

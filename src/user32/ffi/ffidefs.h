@@ -90,6 +90,8 @@ BOOL TranslateMessage(const MSG *lpMsg);
 LRESULT DispatchMessageA(const MSG *lpMsg);
 VOID PostQuitMessage(int nExitCode);
 LRESULT DefWindowProcA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+uintptr_t SetTimer(HWND hWnd, uintptr_t nIDEvent, UINT uElapse, void *lpTimerFunc);
+BOOL KillTimer(HWND hWnd, uintptr_t uIDEvent);
 
 /* Misc */
 HDC GetDC(HWND hWnd);
