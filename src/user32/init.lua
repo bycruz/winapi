@@ -290,13 +290,13 @@ end
 ---@param value winapi.user32.ffi.WPARAM|winapi.user32.ffi.LPARAM
 ---@return number
 function user32.LOWORD(value)
-	return bit.band(value, 0xFFFF)
+	return tonumber(bit.band(tonumber(value), 0xFFFF))
 end
 
 ---@param value winapi.user32.ffi.WPARAM|winapi.user32.ffi.LPARAM
 ---@return number
 function user32.HIWORD(value)
-	return bit.rshift(value, 16)
+	return tonumber(bit.rshift(tonumber(value), 16))
 end
 
 ---@param wParam winapi.user32.ffi.WPARAM
